@@ -1,1 +1,0 @@
-CREATE TABLE orders (id SERIAL PRIMARY KEY,product_id INT REFERENCES products(id),product_quantity INT,user_id INT REFERENCES users(id),order_completness Boolean );

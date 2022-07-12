@@ -46,7 +46,7 @@ export class UserStore{
 
        
             const conn= await client.connect();
-            const sql= 'INSERT INTO users (first_name,last_name,user_password) VALUES ($1,$2,$3)';
+            const sql= 'INSERT INTO users (first_name,last_name,user_password) VALUES ($1,$2,$3)RETURNING *';
             const results = await conn.query(sql,[first_name,last_name,hashedPassword ]);
             conn.release();
             
@@ -54,6 +54,21 @@ export class UserStore{
            
         
         }
+
+        async update(first_name:String,last_name:String,id:Number):Promise<User>{
+
+      
+                const conn= await client.connect();
+                const sql= 'UPDATE users SET first_name=($1),last_name=($2)  WHERE id=($3) RETURNING *';
+                const results = await conn.query(sql,[first_name,last_name,id ]);
+                conn.release();
+                
+                return results.rows[0];
+               
+            
+            }
+
+    
     }
 
 

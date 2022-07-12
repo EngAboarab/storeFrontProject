@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -54,7 +65,7 @@ var OrderStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'SELECT * FROM orders WHERE user_id=($1)';
+                        sql = 'SELECT order_id,product_name,category,price,quantity FROM products JOIN order_product ON order_product.product_id=products.id JOIN orders ON orders.id=order_product.product_id WHERE user_id=($1) ';
                         return [4 /*yield*/, conn.query(sql, [user_id])];
                     case 2:
                         orders = _a.sent();
@@ -78,7 +89,7 @@ var OrderStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'SELECT * FROM orders WHERE id=($1) AND user_id=($2)';
+                        sql = 'SELECT order_id,product_name,category,price,quantity FROM products JOIN order_product ON order_product.product_id=products.id JOIN orders ON orders.id=order_product.product_id WHERE order_id=($1) AND user_id=($2)';
                         return [4 /*yield*/, conn.query(sql, [order_id, user_id])];
                     case 2:
                         results = _a.sent();
@@ -94,7 +105,37 @@ var OrderStore = /** @class */ (function () {
     };
     OrderStore.prototype.create = function (product_id, product_quantity, user_id, order_completness) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, results, err_3;
+            var conn, order_sql, order_results, order, product_sql, product_results, product, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        order_sql = 'INSERT INTO orders (user_id,order_completeness) VALUES ($1,$2) RETURNING *';
+                        return [4 /*yield*/, conn.query(order_sql, [user_id, order_completness])];
+                    case 2:
+                        order_results = _a.sent();
+                        order = order_results.rows[0];
+                        product_sql = 'INSERT INTO order_product (order_id,product_id,quantity) VALUES ($1,$2,$3) RETURNING *';
+                        return [4 /*yield*/, conn.query(product_sql, [order.id, product_id, product_quantity])];
+                    case 3:
+                        product_results = _a.sent();
+                        product = product_results.rows[0];
+                        conn.release();
+                        return [2 /*return*/, __assign(__assign({}, order), { product: product })];
+                    case 4:
+                        err_3 = _a.sent();
+                        throw new Error("there was an error:" + err_3);
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.update = function (order_completness, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, order_sql, order_results, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -102,15 +143,20 @@ var OrderStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO orders (product_id,product_quantity,user_id,order_completness) VALUES ($1,$2,$3,$4)';
-                        return [4 /*yield*/, conn.query(sql, [product_id, product_quantity, user_id, order_completness])];
+                        order_sql = 'UPDATE  orders SET order_completeness=($1) WHERE id=($2)RETURNING *';
+                        return [4 /*yield*/, conn.query(order_sql, [order_completness, id])];
                     case 2:
-                        results = _a.sent();
-                        conn.release();
-                        return [2 /*return*/, results.rows[0]];
+                        order_results = _a.sent();
+                        //    const order= order_results.rows[0]
+                        // //    insert the order product in the order-product table
+                        //     const product_sql='INSERT INTO order_product (order_id,product_id,quantity) VALUES ($1,$2,$3) RETURNING *'
+                        //     const product_results = await conn.query(product_sql,[order.id,product_id,product_quantity]);
+                        //     const product=product_results.rows[0]
+                        //    conn.release();
+                        return [2 /*return*/, order_results.rows[0]];
                     case 3:
-                        err_3 = _a.sent();
-                        throw new Error("there was an error:" + err_3);
+                        err_4 = _a.sent();
+                        throw new Error("there was an error:" + err_4);
                     case 4: return [2 /*return*/];
                 }
             });

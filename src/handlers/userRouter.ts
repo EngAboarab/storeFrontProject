@@ -36,10 +36,26 @@ const create=async(req:Request,res:Response)=>{
 
 }
 
+const update=async(req:Request,res:Response)=>{
+
+   
+    const first_name=req.query.firstName as string;
+    const last_name=req.query.lastName as string;
+    const id= req.query.id as string;
+
+   
+    const user=await store.update(first_name,last_name,parseInt(id))
+    res.json(user)
+}
+
+
 const userRouter=(app:express.Application)=>{
     app.get('/users',authority,index);
     app.get('/users/show',authority,show);
-    app.get('/users/create',create);
+    app.post('/users/create',create);
+    app.put('/users/update',authority,update)
+   
+
 }
 
 

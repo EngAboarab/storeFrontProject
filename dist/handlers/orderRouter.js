@@ -71,6 +71,21 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, orderCompletness, order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.query.id;
+                orderCompletness = req.query.orderCompletness;
+                return [4 /*yield*/, store.update(orderCompletness, id)];
+            case 1:
+                order = _a.sent();
+                res.json(order);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var showLast = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var userId, orders, lastOrder;
     return __generator(this, function (_a) {
@@ -105,6 +120,7 @@ var orderRouter = function (app) {
     app.get('/orders', auth_1.authority, index);
     app.get('/orders/showLast', auth_1.authority, showLast);
     app.get('/orders/show', auth_1.authority, show);
-    app.get('/orders/create', auth_1.authority, create);
+    app.post('/orders/create', auth_1.authority, create);
+    app.patch('/orders/update', auth_1.authority, update);
 };
 exports["default"] = orderRouter;

@@ -16,6 +16,10 @@ describe('tesing of the Order model',()=>{
         expect(store.create).toBeDefined
 
     })
+    it('it has an update method',()=>{
+        expect(store.update).toBeDefined
+
+    })
 
     it ('the methode index will return a value not null',async()=>{
         const results= await store.index(1);

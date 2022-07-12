@@ -91,8 +91,26 @@ var UserStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO users (first_name,last_name,user_password) VALUES ($1,$2,$3)';
+                        sql = 'INSERT INTO users (first_name,last_name,user_password) VALUES ($1,$2,$3)RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [first_name, last_name, hashedPassword])];
+                    case 2:
+                        results = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, results.rows[0]];
+                }
+            });
+        });
+    };
+    UserStore.prototype.update = function (first_name, last_name, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, results;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'UPDATE users SET first_name=($1),last_name=($2)  WHERE id=($3) RETURNING *';
+                        return [4 /*yield*/, conn.query(sql, [first_name, last_name, id])];
                     case 2:
                         results = _a.sent();
                         conn.release();

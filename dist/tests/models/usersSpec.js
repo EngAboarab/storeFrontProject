@@ -21,6 +21,9 @@ describe('tesing of the user model', () => {
     it('it has an create method', () => {
         expect(store.create).toBeDefined;
     });
+    it('it has an update method', () => {
+        expect(store.update).toBeDefined;
+    });
     it('the methode index will return a value not null', () => __awaiter(void 0, void 0, void 0, function* () {
         const results = yield store.index();
         expect(results).toEqual([]);

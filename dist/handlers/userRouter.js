@@ -90,9 +90,26 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var first_name, last_name, id, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                first_name = req.query.firstName;
+                last_name = req.query.lastName;
+                id = req.query.id;
+                return [4 /*yield*/, store.update(first_name, last_name, parseInt(id))];
+            case 1:
+                user = _a.sent();
+                res.json(user);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var userRouter = function (app) {
     app.get('/users', auth_1.authority, index);
     app.get('/users/show', auth_1.authority, show);
-    app.get('/users/create', create);
+    app.post('/users/create', create);
+    app.put('/users/update', auth_1.authority, update);
 };
 exports["default"] = userRouter;

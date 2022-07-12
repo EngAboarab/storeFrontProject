@@ -102,7 +102,7 @@ var ProductStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        sql = 'INSERT INTO products (product_name,price,category) VALUES ($1,$2,$3)';
+                        sql = 'INSERT INTO products (product_name,price,category) VALUES ($1,$2,$3) RETURNING *';
                         return [4 /*yield*/, conn.query(sql, [product_name, price, category])];
                     case 2:
                         results = _a.sent();
@@ -111,6 +111,30 @@ var ProductStore = /** @class */ (function () {
                     case 3:
                         err_3 = _a.sent();
                         throw new Error("there was an error:" + err_3);
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProductStore.prototype.update = function (product_name, price, category, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, results, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'UPDATE products SET product_name=($1),price=($2),category= ($3) WHERE id=($4) RETURNING *';
+                        return [4 /*yield*/, conn.query(sql, [product_name, price, category, id])];
+                    case 2:
+                        results = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, results.rows[0]];
+                    case 3:
+                        err_4 = _a.sent();
+                        throw new Error("there was an error:" + err_4);
                     case 4: return [2 /*return*/];
                 }
             });

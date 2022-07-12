@@ -81,9 +81,27 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
+var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var product_name, price, category, id, product;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                product_name = req.query.name;
+                price = req.query.price;
+                category = req.query.category;
+                id = req.query.id;
+                return [4 /*yield*/, store.update(product_name, parseInt(price), category, parseInt(id))];
+            case 1:
+                product = _a.sent();
+                res.json(product);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var productRouter = function (app) {
     app.get('/products', auth_1.authority, index);
     app.get('/products/create', auth_1.authority, create);
-    app.get('/products/show', auth_1.authority, show);
+    app.post('/products/show', auth_1.authority, show);
+    app.put('/products/update', auth_1.authority, update);
 };
 exports["default"] = productRouter;

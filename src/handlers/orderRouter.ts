@@ -3,6 +3,7 @@ import express,{Request,Response} from 'express'
 import { authority } from "./auth";
 
 const store=new OrderStore()
+
 const index=async(req:Request,res:Response)=>{
     const userId=req.query.userId as unknown as Number
     const orders:Order[]=await store.index(userId);
@@ -18,6 +19,22 @@ const create=async(req:Request,res:Response)=>{
 
    
     const order=await store.create(product_id,product_quantity,user_id,orderCompletness)
+    
+    res.json(order)
+ 
+
+}
+const update=async(req:Request,res:Response)=>{
+
+    // console.log(req.params)
+    // const product_id=req.query.productId as unknown as Number
+    // const product_quantity=req.query.quantity as unknown as Number;
+    const id=req.query.id as unknown as Number;
+    const orderCompletness= (req.query.orderCompletness as unknown) as boolean;
+    
+
+   
+    const order=await store.update(orderCompletness,id)
     
     res.json(order)
  
@@ -43,7 +60,8 @@ const orderRouter=(app:express.Application)=>{
     app.get('/orders',authority,index)
     app.get('/orders/showLast',authority,showLast);
     app.get('/orders/show',authority,show);
-    app.get('/orders/create',authority,create);
+    app.post('/orders/create',authority,create);
+    app.patch('/orders/update',authority,update)
 }
 
 
