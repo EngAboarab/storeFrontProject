@@ -9,14 +9,14 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 - Index [token required]: ```GET /products```
-- Show (args: product id):```GET /products/show params(id)```
+- Show (args: product id)[token required]:```GET /products/show params(id)```
 - Create (args: Product)[token required]:```POST /products/create params(name,price,category)```
 
 
 #### Users
 - Index [token required]:```GET /users``` 
 - Show (args: id)[token required]: ```GET /users/show  params(id)```
-- Create (args: User)[token required]: ```POST /users/create params(firstName,lastName,password)```
+- Create (args: User): ```POST /users/create params(firstName,lastName,password)```
 -Update[token required]:```PUT /users/update params(firstName,lastName)```
 
 #### Orders
