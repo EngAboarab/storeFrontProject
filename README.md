@@ -60,10 +60,16 @@ order-product:table contains the order-products details (order_id,product_id,qua
         ENV=dev
         TOKEN_SECRET=<write the text the will used for token>```
 
+  - migration for the tables:
+    - migrate up: ```npx db-migrate up```
+    - migrate down: ```npx db-migrate down``` 
+
   - testing :
          activate by changing the ENV variable in .env to test ENV=test, run the test script ```npm run test```
-  - run the app :
+  - run the app : 
+
          - activate by changing the ENV variable in .env to dev ENV=dev run the dev script ```npm run watch```
+
          - EndPoints :
          use the app with referring to the REQUIREMENTS.md file
 
