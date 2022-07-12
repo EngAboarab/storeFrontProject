@@ -29,34 +29,34 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product
- column |  type
--------------------------
--  id | INT PRIMARY KEY
-- product_name |  VARCHAR(100)
-- price | INT
-- category  | VARCHAR(128)
+| column |  type         |
+|---------|---------------|
+| id | INT PRIMARY KEY|
+|product_name |  VARCHAR(100)|
+|price | INT|
+|category  | VARCHAR(128)|
 
 #### User
- column |  type
--------------------------
-- id    | INT PRIMARY KEY
-- firstName | VARCHAR(100)
-- lastName  | VARCHAR(100)
-- password  | VARCHAR(128)
+| column |  type        |
+---------|---------------|
+|id    | INT PRIMARY KEY|
+|firstName | VARCHAR(100)|
+|lastName  | VARCHAR(100)|
+|password  | VARCHAR(128)|
 
 #### Orders
-column |  type
--------------------------
-- id    | INT PRIMARY KEY
-- user_id   | INT FOREIGN KEY
-- order_completeness | Boolean
+|   column |  type      |
+|----------|-------------|
+|id    | INT PRIMARY KEY|
+|user_id   | INT FOREIGN KEY|
+|order_completeness | Boolean|
 
 #### Order_product
-column |  type
--------------------------
-- order_id  | INT FOREIGN KEY
-- product_id    |  INT FOREIGN KEY
-- quantity      | INT 
+|   column |  type      |
+|----------|-------------|
+|order_id  | INT FOREIGN KEY|
+|product_id    |  INT FOREIGN KEY|
+|quantity      | INT|
 
 
 

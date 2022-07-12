@@ -51,7 +51,7 @@ order-product:table contains the order-products details (order_id,product_id,qua
      3. create a New User with new testing database: ```CREATE USER <write a user> WITH PASSWORD '<write your Password>' CREATEDB;``` 
      4. create the database :```CREATE DATABASE shoping_dev``` 
      5. create a test database(shoping_dev):  ```CREATE DATABASE shoping_test```
-     6. create .env file with the following cofiguration:
+  - create .env file with the following cofiguration:
       ```POSTGRES_HOST=localhost
         POSTGRES_DB_DEV=shoping_dev
         POSTGRES_DB_TEST=shoping_test
@@ -60,14 +60,14 @@ order-product:table contains the order-products details (order_id,product_id,qua
         ENV=dev
         TOKEN_SECRET=<write the text the will used for token>```
 
-     7. testing :
+  - testing :
          activate by changing the ENV variable in .env to test ENV=test, run the test script ```npm run test```
-     8. run the app :
+  - run the app :
          - activate by changing the ENV variable in .env to dev ENV=dev run the dev script ```npm run watch```
          - EndPoints :
          use the app with referring to the REQUIREMENTS.md file
 
-         ## Note: I am using Postman for endPoint , so I assign the autherization in the headers
+  ## Note: I am using Postman for endPoint , so I assign the autherization in the headers
 
    
       
