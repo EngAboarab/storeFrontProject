@@ -52,6 +52,8 @@ order-product:table contains the order-products details (order_id,product_id,qua
      4. create the database :```CREATE DATABASE shoping_dev``` 
      5. create a test database(shoping_dev):  ```CREATE DATABASE shoping_test```
   - create .env file with the following cofiguration:
+    ## note:   I provide the .env variables in the SUBMISSION DETAILS
+    
       ```POSTGRES_HOST=localhost
         POSTGRES_DB_DEV=shoping_dev
         POSTGRES_DB_TEST=shoping_test
@@ -59,6 +61,8 @@ order-product:table contains the order-products details (order_id,product_id,qua
         POSTGRES_PASSWORD=<write your Password>
         ENV=dev
         TOKEN_SECRET=<write the text the will used for token>```
+
+
 
   - migration for the tables:
     - migrate up: ```npx db-migrate up```
@@ -73,7 +77,7 @@ order-product:table contains the order-products details (order_id,product_id,qua
          - EndPoints :
          use the app with referring to the REQUIREMENTS.md file
 
-  ## Note: I am using Postman for endPoint , so I assign the autherization in the headers
+  ## Note: I am using Postman for endPoint , so I provided the autherization in the SUBMISSION DETAILS
 
    
       

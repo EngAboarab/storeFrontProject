@@ -5,7 +5,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 
-## Note: I am using Postman for endPoint , so I assign the autherization in the headers
+ ## Note: I am using Postman for endPoint , so I Provided the autherization in the SUBMISSION DETAILS
 
 #### Products
 - Index [token required]: ```GET /products```
