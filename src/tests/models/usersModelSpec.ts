@@ -4,6 +4,10 @@ import { User,UserStore } from "../../models/userModel";
 
 
 const store=new UserStore()
+const firstName="Moahmed";
+const lastName="Aboarab";
+const password="password"
+const id=1;
 
 describe('tesing of the user model',()=>{
     it('it has an index method',()=>{
@@ -23,12 +27,20 @@ describe('tesing of the user model',()=>{
 
     })
 
+    it ('the methode create will return a value not null',async()=>{
+        const results= await store.create(firstName,lastName,password);
+        expect(results).not.toBeNull
+    })
+    it ('the methode update will return a value not null',async()=>{
+        const results= await store.update(firstName,lastName,id);
+        expect(results).not.toBeNull
+    })
     it ('the methode index will return a value not null',async()=>{
         const results= await store.index();
-        expect(results).toEqual([])
+        expect(results).not.toBeNull
     })
     it ('the methode show will return a value not null',async()=>{
-        const results= await store.show(1);
+        const results= await store.show(id);
         expect(results).not.toBeNull
     })
 })

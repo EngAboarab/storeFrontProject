@@ -4,13 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
 const userRouter_1 = __importDefault(require("./handlers/userRouter"));
 const productRouter_1 = __importDefault(require("./handlers/productRouter"));
 const orderRouter_1 = __importDefault(require("./handlers/orderRouter"));
+const cors_1 = __importDefault(require("cors"));
 const app = express_1.default();
 const address = "0.0.0.0:3000";
-app.use(body_parser_1.default.json());
+app.use(cors_1.default());
+// app.use(bodyParser.json())
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });

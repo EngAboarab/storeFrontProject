@@ -13,33 +13,53 @@ const productModel_1 = require("../models/productModel");
 const auth_1 = require("./auth");
 const store = new productModel_1.ProductStore();
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield store.index();
-    res.json(products);
+    try {
+        const products = yield store.index();
+        res.status(200).json(products);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product_id = req.query.id;
-    const product = yield store.show(product_id);
-    res.json(product);
+    try {
+        const product_id = req.query.id;
+        const product = yield store.show(product_id);
+        res.status(200).json(product);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product_name = req.query.name;
-    const price = req.query.price;
-    const category = req.query.category;
-    const product = yield store.create(product_name, parseInt(price), category);
-    res.json(product);
+    try {
+        const product_name = req.query.name;
+        const price = req.query.price;
+        const category = req.query.category;
+        const product = yield store.create(product_name, parseInt(price), category);
+        res.status(200).json(product);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const product_name = req.query.name;
-    const price = req.query.price;
-    const category = req.query.category;
-    const id = req.query.id;
-    const product = yield store.update(product_name, parseInt(price), category, parseInt(id));
-    res.json(product);
+    try {
+        const product_name = req.query.name;
+        const price = req.query.price;
+        const category = req.query.category;
+        const id = req.query.id;
+        const product = yield store.update(product_name, parseInt(price), category, parseInt(id));
+        res.status(200).json(product);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const productRouter = (app) => {
-    app.get('/products', auth_1.authority, index);
-    app.get('/products/create', auth_1.authority, create);
-    app.post('/products/show', auth_1.authority, show);
+    app.get('/products', index);
+    app.post('/products/create', auth_1.authority, create);
+    app.get('/products/show', show);
     app.put('/products/update', auth_1.authority, update);
 };
 exports.default = productRouter;

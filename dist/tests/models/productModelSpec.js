@@ -11,6 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const productModel_1 = require("../../models/productModel");
 const store = new productModel_1.ProductStore();
+const userId = 1;
+const product_id = 1;
+const product_name = "train";
+const price = 200;
+const category = "toy";
+const id = 1;
 describe('tesing of the Product model', () => {
     it('it has an index method', () => {
         expect(store.index).toBeDefined;
@@ -24,12 +30,20 @@ describe('tesing of the Product model', () => {
     it('it has an update method', () => {
         expect(store.update).toBeDefined;
     });
+    it('the methode create will return a value not null', () => __awaiter(void 0, void 0, void 0, function* () {
+        const results = yield store.create(product_name, price, category);
+        expect(results).not.toBeNull;
+    }));
+    it('the methode update will return a value not null', () => __awaiter(void 0, void 0, void 0, function* () {
+        const results = yield store.update(product_name, price, category, id);
+        expect(results).not.toBeNull;
+    }));
     it('the methode index will return a value not null', () => __awaiter(void 0, void 0, void 0, function* () {
         const results = yield store.index();
-        expect(results).toEqual([]);
+        expect(results).not.toBeNull;
     }));
     it('the methode show will return a value not null', () => __awaiter(void 0, void 0, void 0, function* () {
-        const results = yield store.show(1);
+        const results = yield store.show(product_id);
         expect(results).not.toBeNull;
     }));
 });

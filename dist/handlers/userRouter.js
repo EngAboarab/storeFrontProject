@@ -19,30 +19,50 @@ require("dotenv/config");
 const store = new userModel_1.UserStore();
 // dotenv.config()
 const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield store.index();
-    res.json(users);
+    try {
+        const users = yield store.index();
+        res.status(200).json(users);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.query.id;
-    const user = yield store.show(id);
-    res.json(user);
+    try {
+        const id = req.query.id;
+        const user = yield store.show(id);
+        res.status(200).json(user);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(req.params)
-    const first_name = req.query.firstName;
-    const last_name = req.query.lastName;
-    const password = req.query.password;
-    const user = yield store.create(first_name, last_name, password);
-    //create a token
-    const token = jsonwebtoken_1.default.sign({ user: user }, process.env.TOKEN_SECRET);
-    res.json(token);
+    try {
+        // console.log(req.params)
+        const first_name = req.query.firstName;
+        const last_name = req.query.lastName;
+        const password = req.query.password;
+        const user = yield store.create(first_name, last_name, password);
+        //create a token
+        const token = jsonwebtoken_1.default.sign({ user: user }, process.env.TOKEN_SECRET);
+        res.status(200).json(token);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const first_name = req.query.firstName;
-    const last_name = req.query.lastName;
-    const id = req.query.id;
-    const user = yield store.update(first_name, last_name, parseInt(id));
-    res.json(user);
+    try {
+        const first_name = req.query.firstName;
+        const last_name = req.query.lastName;
+        const id = req.query.id;
+        const user = yield store.update(first_name, last_name, parseInt(id));
+        res.status(200).json(user);
+    }
+    catch (err) {
+        throw new Error(`there was an error:${err}`);
+    }
 });
 const userRouter = (app) => {
     app.get('/users', auth_1.authority, index);
